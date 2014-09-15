@@ -36,6 +36,7 @@
 
     </head>
     <body>
+        <input id="movie-input" class="controls" type="text" placeholder="Enter a movie">
         <div id="map"></div>
         <script>
             //Create Google Map instance
@@ -46,18 +47,30 @@
                     mapTypeId: google.maps.MapTypeId.TERRAIN
                 };
 
-                var map     = new google.maps.Map(d3.select("#map").node(), mapOptions);
-                var movie;
+                var map             = new google.maps.Map(d3.select("#map").node(), mapOptions);
+                var movie_select    = d3.select("#movie-input");
 
                 //Overlay nodes
+                var movie;
+                var data;
+                var overlay;
                 d3.json("rows.json", function(error, json) {
-                    var overlay = new google.maps.OverlayView()
+                    overlay = new google.maps.OverlayView()
                     if (error)return console.warn(error);
-                    movie = "Basic Instinct";
+                    data = json
+                    movie = "";
                     visualize(json, movie, overlay);
                 });
 
-                //TODO: event handler for autocomplete
+                //event handler for autocomplete
+                movie_select.on("change", function(d) {
+                    movie = (movie_select.node().value);
+                    console.log(movie);
+                    console.log(data);
+                    console.log(overlay);
+                    visualize(data, movie, overlay);
+                    overlay.setMap(map);
+                });
 
                 var visualize = function(data, filter, overlay) {
                     data = data.filter(function (d) { return d.title == filter; });
@@ -84,8 +97,8 @@
 
                             marker.append("svg:text")
                             .attr("x", padding + 7)
-                            .attr("dy", ".31em")
-                            .text(function(d) { return d.value.title; });
+                            .attr("dy", "1.0em")
+                            .text(function(d) { return d.value.location; });
 
 
                             function transform(d) {
@@ -98,7 +111,6 @@
                         }
                     }
 
-                    overlay.setMap(map);
                 }
 
             }
