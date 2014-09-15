@@ -16,12 +16,14 @@ index       = 0
 #contact google places on all non results
 index = 0
 for loc in locations.keys():
-    if locations[loc] == '':
+    print(locations[loc])
+    if locations[loc]['status'] == 'ZERO_RESULTS' and ')' in loc:
         print(index)
         index += 1
         time.sleep(.65)
 
-        payload     = {'keyword': loc, 'location': san_fran, 'radius': '10000', 'key': key}
+        address = loc[loc.find('(')+1:loc.find(')')]
+        payload     = {'keyword': address, 'location': san_fran, 'radius': '13000', 'key': key}
         print(loc)
         r           = requests.get(google_plc, params = payload)
         locations[loc] = r.json()

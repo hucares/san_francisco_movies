@@ -13,4 +13,4 @@ for scene in scenes:
     address = scene[10]
     locations[address] = ''
 
-pickle.dump(locations, open("locations.p", "wb"))
+pickle.dump(locations, open("locs.p", "wb"))

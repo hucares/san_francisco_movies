@@ -3,4 +3,8 @@ Google Geocoding returns ~440 within SF
 
 Remove all locations not within SF
 
-Remaining locations will be backfilled with Google Places
+Switched to Places API
+matched 631 on first pass
+much more satisfactory results
+
+
