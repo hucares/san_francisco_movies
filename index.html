@@ -24,12 +24,26 @@
             //Create Google Map instance
             function initialize() {
                 var mapOptions = {
-                    zoom: 8,
+                    zoom: 13,
                     center: new google.maps.LatLng(37.76487, -122.41948),
                     mapTypeId: google.maps.MapTypeId.TERRAIN
                 };
 
-                var map = new google.maps.Map(d3.select("#map").node(), mapOptions);
+                var map     = new google.maps.Map(d3.select("#map").node(), mapOptions);
+                var movie;
+
+                //Overlay nodes
+                d3.json("locations.json", function(error, json) {
+                    if (error)return console.warn(error);
+                    movie = "Basic Instinct";
+                    visualize(json, movie);
+                });
+
+                //TODO: event handler for autocomplete
+
+                var visualize = function(data, filter) {
+                }
+
             }
 
             google.maps.event.addDomListener(window, 'load', initialize);
