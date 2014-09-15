@@ -21,6 +21,7 @@ for loc in locations.keys():
             and loc is not None:
 
         def long_name(x): return x['long_name'] == 'San Francisco'
+
         components = locations[loc]['results'][0]['address_components']
         if not any(list(map(long_name, components))):
             locations[loc] = ''
