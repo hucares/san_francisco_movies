@@ -1,0 +1,6 @@
+727 unique locations
+Google Geocoding returns ~440 within SF
+
+Remove all locations not within SF
+
+Remaining locations will be backfilled with Google Places
