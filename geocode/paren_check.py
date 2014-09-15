@@ -13,7 +13,6 @@ san_fran    = '37.76487,-122.41948'
 key         = 'AIzaSyA1OP1vHLtzFX35YzyyBJqI7kTy6_dNDR0'
 index       = 0
 
-print(locations)
 #contact google places on all non results
 index = 0
 for loc in locations.keys():
