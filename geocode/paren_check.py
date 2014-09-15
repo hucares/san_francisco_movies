@@ -17,19 +17,16 @@ print(locations)
 #contact google places on all non results
 index = 0
 for loc in locations.keys():
-    print(loc)
-    print(locations[loc]['status'])
     if locations[loc]['status'] == 'ZERO_RESULTS':
         print(index)
         index += 1
         time.sleep(.65)
-
+        print(loc)
         address = loc[loc.find('(')+1:loc.find(')')]
         payload     = {'keyword': address, 'location': san_fran, 'radius': '13000', 'key': key}
-        print(loc)
         r           = requests.get(google_plc, params = payload)
         locations[loc] = r.json()
 
         print(r.json())
 
-pickle.dump(locations, open("locations.p", "wb"))
+pickle.dump(locations, open("locs.p", "wb"))

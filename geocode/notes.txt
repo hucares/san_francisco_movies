@@ -7,4 +7,6 @@ Switched to Places API
 matched 631 on first pass
 much more satisfactory results
 
+With paren filling now at 709
+
 
