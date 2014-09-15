@@ -25,7 +25,7 @@ for loc in locations.keys():
         print(loc)
         r           = requests.get(google_plc, params = payload)
         locations[loc] = r.json()
-
+        pdb.set_trace()
         print(r.json())
 
-pickle.dump(locations, open("locations.p", "wb"))
+pickle.dump(locations, open("locs.p", "wb"))
