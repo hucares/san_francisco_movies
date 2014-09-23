@@ -75,6 +75,10 @@
                 border: 1px solid #4d90fe;
             }
 
+            .ui-state-focus
+            {
+                background: #4d90fe;
+            }
         </style>
 
     </head>
@@ -163,7 +167,7 @@
 
                             marker.append("svg:text")
                             .attr("x", padding + 10)
-                            .attr("dy", "1.0em")
+                            .attr("dy", "2.0em")
                             .text(function(d) { return d.value.location; });
 
 
