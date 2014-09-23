@@ -7,6 +7,8 @@
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
         <script type = "text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script type = "text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js" charset="utf-8"></script>
+        <script type = "text/javascript" src="http://code.jquery.com/jquery-1.10.2.js" charset="utf-8"></script>
+        <script type = "text/javascript" src="http://code.jquery.com/ui/1.11.1/jquery-ui.js" charset="utf-8"></script>
 
         <style type="text/css">
             html, body, #map {
@@ -32,6 +34,32 @@
                 stroke-width: 1.5px;
             }
 
+            #movie-input {
+                z-index: 1;
+                position: absolute;
+                left: 88px;
+                top : 10px;
+
+                background-color: #fff;
+                padding: 0 11px 0 13px;
+                width: 400px;
+                font-family: Roboto;
+                font-size: 15px;
+                font-weight: 300;
+                text-overflow: ellipsis;
+            }
+
+            #movie-input:focus {
+                border-color: #4d90fe;
+                margin-left: -1px;
+                padding-left: 14px;  /* Regular padding-left + 1. */
+                width: 401px;
+            }
+
+            .pac-container {
+                font-family: Roboto;
+            }
+
         </style>
 
     </head>
@@ -55,6 +83,15 @@
                 var data;
                 var overlay;
                 d3.json("rows.json", function(error, json) {
+                    //bind movies to autocomplete form
+                    $(function() {
+                        var movies = _.uniq(_.flatten(_.map(json, function (d) { return d.title})));
+                        $("#movie-input").autocomplete({
+                            source: movies,
+                            select: update
+                        });
+                    });
+
                     overlay = new google.maps.OverlayView()
                     if (error)return console.warn(error);
                     data = json
@@ -62,15 +99,26 @@
                     visualize(json, movie, overlay);
                 });
 
-                //event handler for autocomplete
-                movie_select.on("change", function(d) {
+                movie_select.on("input", function(d) {
+                    //exit hack
+                    d3.selectAll("svg").remove();
+
+                    overlay = new google.maps.OverlayView()
                     movie = (movie_select.node().value);
-                    console.log(movie);
-                    console.log(data);
-                    console.log(overlay);
                     visualize(data, movie, overlay);
                     overlay.setMap(map);
                 });
+
+                //autocomplete update
+                var update = function (event, ui) {
+                    d3.selectAll("svg").remove();
+
+                    overlay = new google.maps.OverlayView()
+                    movie = (ui.item.label);
+                    console.log(movie);
+                    visualize(data, movie, overlay);
+                    overlay.setMap(map);
+                }
 
                 var visualize = function(data, filter, overlay) {
                     data = data.filter(function (d) { return d.title == filter; });
