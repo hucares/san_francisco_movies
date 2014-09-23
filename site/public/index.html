@@ -97,7 +97,7 @@
                 var movie;
                 var data;
                 var overlay;
-                d3.json("rows.json", function(error, json) {
+                d3.json("/js/rows.json", function(error, json) {
                     //bind movies to autocomplete form
                     $(function() {
                         var movies = _.uniq(_.flatten(_.map(json, function (d) { return d.title})));
