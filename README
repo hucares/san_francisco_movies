@@ -5,54 +5,42 @@ Abstract
 ========
 The SF Movies visualizer allows a user to search and visualize filming
 locations on a map. A critical requirement is that the search should be
-done. A JavaScript client communicates with a Flask backend.
+autocompleted. A JavaScript client communicates with a Rack backend.
 
 Frontend
 ========
-The front-end is written in D3.js and backbone.js. It fetches a JSON
+The front-end is written using juqery-ui, D3.js and backbone.js. It fetches a JSON
 with all the relevant location data and visualized it on Google Maps.
 
 I selected frameworks and tools that would allow speedy and concise development.
-The center-piece of the frontend was D3.js since it allowed it can create 
-stunning visualizations very quickly. It is supremely concise and its
-data-driven architechture minimizes the problem of state handling. I use a 
-jQuery plugin to manage the autocomplete feature. I selected Google maps
-on the basis of its good visual design, outstanding geocoding, and
-StreetView integration.
+The center-piece of the frontend was D3.js since it allowed it can create
+visualizations very quickly. It is supremely concise and its
+data-driven architechture minimizes the problem of state handling. There
+was somedifficulty integrating Google Maps projections with D3's
+enter and exit abstractions but I managed to create a workaround.
 
-I am profecient with JavaScript. I have extensive experience with
+I use jQuery-ui to manage the autocomplete feature. I selected Google maps
+on the basis of its good visual design.
+
+I am proficient with JavaScript. I have extensive experience with
 backbone.js and some experience with D3.js.
 
 Backend
 =======
-The backend of the of the application is written in Flask with a
-SQL backend. Local development employs sqllite while production uses the
-Heroku provided postgres. There is a test suite included.
+The backend of the of the application is a simple static Rack site
+deployed over Heroku.
 
-The backend was motivated by the requirement
-of my chosen track rather than strict technical neccessity. The end
-client can simply request a full JSON file of all movie locations and D3.js
-is powerful enough to simply organize and visualize completely on the
-client-side. Flask provides a minimalist framework to write RESTful
-interfaces.
+I didn't feel that a full fleshed back-end was strictly neccessary since
+the data-set was so small. While my specified track is full stack, I thought
+that a full back-end would be entirely unneccessary and would not improve the
+customer experience.. Preloading all the locations onto the client improves the
+responsiveness.
 
-In lieu of of the application requirements, I imagined a hypothetical
-customer that would consume a JSON REST interface. This API could
-hypothetically be employed by the front-end though I chose not to
-integrate it for the sake of simplicity and speed. Were the data to grow
-to a point where D3.js became sluggish, I would then switch to consuming
-the more atomic backend operations.
+I employed the Google Places API which successfully geocoded 709 out of the 727
+uniuqe locations. I stored the lat-lng results with Pickle and generated a static
+JSON file with all the scene locations to be loaded on the client.
 
-I have not used Flask ever and I have limited experience with Heroku.
-
-API
-===
-GET /dump
-returns entire database contents
-
-GET /movie/[name]
-
-GET /movie/[name]/locations
+I have no experience with Rack and I have limited experience with Heroku.
 
 Extras
 ======
@@ -60,6 +48,5 @@ Resume: https://db.tt/K2M6VSGl
 Github: https://github.com/vendettanine
 
 Check out the Project Euler repo on my personal repo. I finished about
-44 problems before a breach forced them to delete their accounts =(
+44 problems before a security breach forced them to delete their accounts =(
 https://github.com/vendettanine/project-euler
-
